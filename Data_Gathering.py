@@ -31,7 +31,7 @@ def GetAPIUrl(cur):
     Makes a URL for querying historical prices of a cyrpto from Poloniex
     cur:    3 letter abbreviation for cryptocurrency (BTC, LTC, etc)
     '''
-    u = 'https://poloniex.com/public?command=returnChartData&currencyPair=USDT_' + cur + '&start=1420070400&end=9999999999&period=14400'
+    u = 'https://poloniex.com/public?command=returnChartData&currencyPair=USDT_' + cur + '&start=1420070400&end=9999999999&period=7200'
     return u
  
 def GetCurDF(cur, fp):

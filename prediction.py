@@ -9,12 +9,12 @@ from PastSampler import PastSampler
  
 #%%Features are channels
 C = np.hstack((Di[CN] for Di in D))[:, None, :]
-HP = 16                 #Holdout period
+HP = 1                 #Holdout period
 A = C[0:-HP]                
 SV = A.mean(axis = 0)   #Scale vector
 C /= SV                 #Basic scaling of data
 #%%Make samples of temporal sequences of pricing data (channel)
-NPS, NFS = 256, 16         #Number of past and future samples
+NPS, NFS = 128, 8         #Number of past and future samples
 ps = PastSampler(NPS, NFS)
 B, Y = ps.transform(A)
 
@@ -27,7 +27,7 @@ ns = [('C1d', [8, NC, NC * 2], 4), ('AF', 'relu'),
       ('C1d', [8, NC * 2, NC * 2], 2), ('AF', 'relu'), 
       ('C1d', [8, NC * 2, NC], 2)]
 #Create the neural network in TensorFlow
-cnnr = ANNR(B[0].shape, ns, batchSize = 32, learnRate = 2e-5, 
+cnnr = ANNR(B[0].shape, ns, batchSize = 16, learnRate = 2e-5, 
             maxIter = 64, reg = 1e-5, tol = 1e-2, verbose = True)
 cnnr.fit(B, Y)
 
